@@ -7,6 +7,23 @@
 (require-package 'pretty-mode)
 (autoload 'turn-on-pretty-mode "pretty-mode")
 
+(setq-default initial-scratch-message
+              (concat ";; Happy hacking " (or user-login-name "") "!\n\n"))
+
+
+
+;; Make C-x C-e run 'eval-region if the region is active
+
+(defun sanityinc/eval-last-sexp-or-region (beg end prefix)
+  "Eval region from BEG to END if active, otherwise the last sexp."
+  (interactive "r\nP")
+  (if (use-region-p)
+      (eval-region beg end)
+    (eval-last-sexp prefix)))
+
+(after-load 'lisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region))
+
 ;; ----------------------------------------------------------------------------
 ;; Hippie-expand
 ;; ----------------------------------------------------------------------------
@@ -154,6 +171,10 @@
 (after-load 'lisp-mode
   (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand))
 
+
+
+;; A quick way to jump to the definition of a function given its key binding
+(global-set-key (kbd "C-h K") 'find-function-on-key)
 
 
 (provide 'init-lisp)

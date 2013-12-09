@@ -1,4 +1,4 @@
-(require-package 'json)
+(require-package 'json-mode)
 (when (>= emacs-major-version 24)
   (require-package 'js2-mode)
   (require-package 'ac-js2))
@@ -26,9 +26,6 @@
                                   collect entry)))
 
 
-(add-auto-mode 'js-mode "\\.json\\'")
-
-
 ;; js2-mode
 (after-load 'js2-mode
   (add-hook 'js2-mode-hook '(lambda () (setq mode-name "JS2"))))
@@ -46,9 +43,6 @@
 ;; js-mode
 (setq js-indent-level preferred-javascript-indent-level)
 
-
-;; standard javascript-mode
-(setq javascript-indent-level preferred-javascript-indent-level)
 
 (add-to-list 'interpreter-mode-alist (cons "node" preferred-javascript-mode))
 

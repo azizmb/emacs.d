@@ -41,7 +41,13 @@
       auto-revert-verbose nil)
 
 ;; But don't show trailing whitespace in SQLi, inf-ruby etc.
-(dolist (hook '(term-mode-hook comint-mode-hook compilation-mode-hook twittering-mode-hook))
+(dolist (hook '(special-mode-hook
+                eww-mode
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook
+                twittering-mode-hook
+                minibuffer-setup-hook))
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
@@ -53,13 +59,23 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-(after-load 'subword
-  (diminish 'subword-mode))
+(when (eval-when-compile (string< "24.3.1" emacs-version))
+  ;; https://github.com/purcell/emacs.d/issues/138
+  (after-load 'subword
+    (diminish 'subword-mode)))
 
 
 (require-package 'undo-tree)
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)
+
+
+(require-package 'highlight-symbol)
+(dolist (hook '(prog-mode-hook html-mode-hook))
+  (add-hook hook 'highlight-symbol-mode)
+  (add-hook hook 'highlight-symbol-nav-mode))
+(eval-after-load 'highlight-symbol
+  '(diminish 'highlight-symbol-mode))
 
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
@@ -77,8 +93,7 @@
 ;;----------------------------------------------------------------------------
 ;; Show matching parens
 ;;----------------------------------------------------------------------------
-(require-package 'mic-paren)
-(paren-activate)     ; activating mic-paren
+(show-paren-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; Expand region
@@ -306,16 +321,12 @@ With arg N, insert N newlines."
 
 
 
-(require-package 'visual-regexp)
-(global-set-key [remap query-replace-regexp] 'vr/query-replace)
-(global-set-key [remap replace-regexp] 'vr/replace)
-
-
 
 (when (executable-find "ag")
   (require-package 'ag)
   (require-package 'wgrep-ag)
-  (setq-default ag-highlight-search t))
+  (setq-default ag-highlight-search t)
+  (global-set-key (kbd "M-?") 'ag-project))
 
 
 
