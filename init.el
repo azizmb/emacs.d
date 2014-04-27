@@ -75,7 +75,7 @@
 (require 'init-sql)
 (require 'init-scala-mode)
 
-(require 'init-paredit)
+(require 'init-smartparens)
 (require 'init-lisp)
 (require 'init-slime)
 (require 'init-clojure)
