@@ -1,8 +1,11 @@
 (require-package 'smartparens)
 
-(smartparens-mode +1)
+(defun enable-smartparens ()
+  (smartparens-mode +1)
+  (show-smartparens-global-mode +1)
+  )
 
-(show-smartparens-global-mode +1)
+(add-hook 'prog-mode-hook 'enable-smartparens)
 
 (defun conditionally-enable-smartparens-mode ()
   "Enable `smartparens-mode' in the minibuffer, during `eval-expression'."
