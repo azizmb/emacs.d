@@ -14,6 +14,8 @@
 ;; Use smex to handle M-x
 (when (eval-when-compile (>= emacs-major-version 24))
   (require-package 'smex)
+  ;; Change path for ~/.smex-items
+  (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
   (global-set-key [remap execute-extended-command] 'smex))
 
 (require-package 'idomenu)
@@ -39,6 +41,11 @@
   (unless (and buffer-file-name
                (file-writable-p buffer-file-name))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+;; http://www.reddit.com/r/emacs/comments/21a4p9/use_recentf_and_ido_together/cgbprem
+(add-hook 'ido-setup-hook (lambda () (define-key ido-completion-map [up] 'previous-history-element)))
+
+
 
 
 (provide 'init-ido)
