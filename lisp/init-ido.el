@@ -23,18 +23,6 @@
 ;; Allow the same buffer to be open in different frames
 (setq ido-default-buffer-method 'selected-window)
 
-(when (eval-when-compile (< emacs-major-version 24))
- (defun sanityinc/ido-choose-from-recentf ()
-   "Use ido to select a recently opened file from the `recentf-list'"
-   (interactive)
-   (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
-       (ido-switch-buffer)
-     (find-file (ido-completing-read "Open file: "
-                                     (mapcar 'abbreviate-file-name recentf-list)
-                                     nil t))))
-
- (global-set-key [(meta f11)] 'sanityinc/ido-choose-from-recentf))
-
 ;; Open file with sudo if required
 (defadvice ido-find-file (after find-file-sudo activate)
   "Find file as root if necessary."

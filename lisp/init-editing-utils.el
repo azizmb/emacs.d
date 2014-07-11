@@ -73,7 +73,7 @@
   (move-end-of-line 1)
   (newline-and-indent))
 
-(global-set-key (kbd "<S-return>") 'sanityinc/newline-at-end-of-line)
+(global-set-key (kbd "S-<return>") 'sanityinc/newline-at-end-of-line)
 
 
 
@@ -169,20 +169,6 @@
 (global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
 
 
-(defun duplicate-region (beg end)
-  "Insert a copy of the current region after the region."
-  (interactive "r")
-  (save-excursion
-    (goto-char end)
-    (insert (buffer-substring beg end))))
-
-(defun duplicate-line-or-region (prefix)
-  "Duplicate either the current line or any current region."
-  (interactive "*p")
-  (whole-line-or-region-call-with-region 'duplicate-region prefix t))
-
-(global-set-key (kbd "C-c p") 'duplicate-line-or-region)
-
 ;; Train myself to use M-f and M-b instead
 (global-unset-key [M-left])
 (global-unset-key [M-right])
@@ -249,11 +235,13 @@
 ;; it will use those keybindings. For this reason, you might prefer to
 ;; use M-S-up and M-S-down, which will work even in lisp modes.
 ;;----------------------------------------------------------------------------
-(require-package 'move-text)
-(global-set-key [M-up] 'move-text-up)
-(global-set-key [M-down] 'move-text-down)
-(global-set-key [M-S-up] 'move-text-up)
-(global-set-key [M-S-down] 'move-text-down)
+(require-package 'move-dup)
+(global-set-key [M-up] 'md/move-lines-up)
+(global-set-key [M-down] 'md/move-lines-down)
+(global-set-key [M-S-up] 'md/move-lines-up)
+(global-set-key [M-S-down] 'md/move-lines-down)
+
+(global-set-key (kbd "C-c p") 'md/duplicate-down)
 
 ;;----------------------------------------------------------------------------
 ;; Fix backward-up-list to understand quotes, see http://bit.ly/h7mdIL
@@ -362,6 +350,34 @@ With arg N, insert N newlines."
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x 5" "C-c ;" "C-c ; f" "C-c ' f" "C-x n"))
 (guide-key-mode 1)
 (diminish 'guide-key-mode)
+
+;;----------------------------------------------------------------------------
+;; Toggle quotes
+;; http://stackoverflow.com/questions/15580913/is-there-a-way-to-toggle-a-string-between-single-and-double-quotes-in-emacs
+;;----------------------------------------------------------------------------
+(defun toggle-quotes ()
+  "Toggle single quoted string to double or vice versa, and
+  flip the internal quotes as well.  Best to run on the first
+  character of the string."
+  (interactive)
+  (save-excursion
+    (re-search-backward "[\"']")
+    (let* ((start (point))
+           (old-c (char-after start))
+           new-c)
+      (setq new-c
+            (case old-c
+              (?\" "'")
+              (?\' "\"")))
+      (setq old-c (char-to-string old-c))
+      (delete-char 1)
+      (insert new-c)
+      (re-search-forward old-c)
+      (backward-char 1)
+      (let ((end (point)))
+        (delete-char 1)
+        (insert new-c)
+        (replace-string new-c old-c nil (1+ start) end)))))
 
 
 (provide 'init-editing-utils)
