@@ -3,6 +3,8 @@
 		("SConscript\\'" . python-mode))
               auto-mode-alist))
 
+(require-package 'pip-requirements)
+
 ;;----------------------------------------------------------------------------
 ;; Python - fill column indicator
 ;;----------------------------------------------------------------------------
