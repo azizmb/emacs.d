@@ -5,6 +5,24 @@
 
 (require-package 'pip-requirements)
 
+(require-package 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+(setq venv-location "/home/aziz/.virtualenvs/")
+
+(defun projectile-pyenv-mode-set ()
+  "Set pyenv version matching project name.
+Version must be already installed."
+  (venv-workon (projectile-project-name)))
+
+(add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
+
+(require-package 'anaconda-mode)
+(require-package 'company-anaconda)
+
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'eldoc-mode)
+
 ;;----------------------------------------------------------------------------
 ;; Python - fill column indicator
 ;;----------------------------------------------------------------------------
