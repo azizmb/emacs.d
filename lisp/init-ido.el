@@ -1,11 +1,17 @@
 ;; Use C-f during file selection to switch to regular find-file
 (require 'ido)
+
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point nil)
 (setq ido-auto-merge-work-directories-length 0)
 (setq ido-use-virtual-buffers t)
+
+(maybe-require-package 'flx-ido)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
 
 (when (maybe-require-package 'ido-ubiquitous)
   (ido-ubiquitous-mode t))
