@@ -24,6 +24,19 @@ Version must be already installed."
 (add-hook 'python-mode-hook 'eldoc-mode)
 
 ;;----------------------------------------------------------------------------
+;; Insert breakpoint
+;;----------------------------------------------------------------------------
+
+(defun python-add-breakpoint ()
+  "Add a break point"
+  (interactive)
+  (newline-and-indent)
+  (insert "import ipdb; ipdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
+
+(define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)
+
+;;----------------------------------------------------------------------------
 ;; Python - fill column indicator
 ;;----------------------------------------------------------------------------
 
