@@ -23,6 +23,9 @@ Version must be already installed."
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'eldoc-mode)
 
+(require-package 'pony-mode)
+(add-hook 'python-mode-hook 'pony-reload-mode)
+
 ;;----------------------------------------------------------------------------
 ;; Insert breakpoint
 ;;----------------------------------------------------------------------------
@@ -34,7 +37,8 @@ Version must be already installed."
   (insert "import ipdb; ipdb.set_trace()")
   (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
 
-(define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)
+(add-hook 'python-mode-hook (lambda ()
+                              (define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)))
 
 ;;----------------------------------------------------------------------------
 ;; Python - fill column indicator
