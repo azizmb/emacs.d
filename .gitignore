@@ -35,6 +35,7 @@ site-lisp/package/
 /eshell
 /.cask/
 /.sx/
+/org-clock-save.el
 session.*
 *.eld
 *.cache
