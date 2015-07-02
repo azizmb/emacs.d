@@ -39,3 +39,7 @@ site-lisp/package/
 session.*
 *.eld
 *.cache
+/ditaa*.jar
+/ido.last
+/recentf
+/viper
