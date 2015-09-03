@@ -165,11 +165,9 @@
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
-(require-package 'avy)
-(global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1)
-;; (global-set-key (kbd "s-.") 'avy-goto-word-or-subword-1)
-;; (global-set-key (kbd "s-w") 'ace-window)
-
+(when (maybe-require-package 'avy)
+  (autoload 'avy-goto-word-or-subword-1 "avy")
+  (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
 
 (require-package 'multiple-cursors)
 ;; multiple-cursors
