@@ -15,5 +15,8 @@
 
 (add-auto-mode 'conf-mode "Procfile")
 
+(require-package 'twittering-mode)
+(setq twittering-icon-mode t)
+
 
 (provide 'init-misc)
