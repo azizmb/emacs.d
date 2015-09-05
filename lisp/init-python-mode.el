@@ -26,6 +26,13 @@ Version must be already installed."
 (require-package 'pony-mode)
 (add-hook 'python-mode-hook 'pony-reload-mode)
 
+
+;;----------------------------------------------------------------------------
+;; Django
+;;----------------------------------------------------------------------------
+(require-package 'python-django)
+(require-package 'django-snippets)
+
 ;;----------------------------------------------------------------------------
 ;; Insert breakpoint
 ;;----------------------------------------------------------------------------
