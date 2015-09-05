@@ -1,13 +1,14 @@
-(require-package 'tidy)
-(add-hook 'html-mode-hook (lambda () (tidy-build-menu html-mode-map)))
+(require-package 'web-mode)
 
-(require-package 'tagedit)
-(after-load 'sgml-mode
-  (tagedit-add-paredit-like-keybindings)
-  (add-hook 'sgml-mode-hook (lambda () (tagedit-mode 1))))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(setq web-mode-markup-indent-offset 4)
+(setq web-mode-css-indent-offset 4)
+(setq web-mode-code-indent-offset 4)
+(setq web-mode-enable-current-column-highlight t)
+(setq web-mode-enable-current-element-highlight t)
 
-(add-auto-mode 'html-mode "\\.(jsp|tmpl)\\'")
+(setq web-mode-engines-alist
+      '(("django"    . ".*/templates/.*\\.html\\'")))
 
-;; Note: ERB is configured in init-ruby-mode
 
 (provide 'init-html)
