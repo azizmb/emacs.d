@@ -116,6 +116,7 @@
 (when *is-a-mac*
   (require-package 'osx-location))
 (require-package 'regex-tool)
+(require-package 'graphviz-dot-mode)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
