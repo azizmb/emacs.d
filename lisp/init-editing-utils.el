@@ -5,6 +5,14 @@
 (when (eval-when-compile (version< "24.4" emacs-version))
   (electric-indent-mode 1))
 
+;; Disable electric pair in certain modes
+(defvar my-electic-pair-modes '(web-mode))
+
+(defun my-inhibit-electric-pair-mode (char)
+  (member major-mode my-electic-pair-modes))
+
+(setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-mode)
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
