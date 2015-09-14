@@ -20,6 +20,9 @@ Version must be already installed."
 (require-package 'anaconda-mode)
 (require-package 'company-anaconda)
 
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-anaconda))
+
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'eldoc-mode)
 
