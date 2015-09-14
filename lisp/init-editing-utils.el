@@ -169,6 +169,11 @@
   (autoload 'avy-goto-word-or-subword-1 "avy")
   (global-set-key (kbd "C-;") 'avy-goto-word-or-subword-1))
 
+(when (maybe-require-package 'avy-zap)
+  ;; (global-set-key (kbd "C-M-;") 'avy-zap-to-char-dwim)
+  (global-set-key (kbd "C-M-;") 'avy-zap-up-to-char-dwim)
+  )
+
 (require-package 'multiple-cursors)
 ;; multiple-cursors
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
