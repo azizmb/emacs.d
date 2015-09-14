@@ -13,7 +13,14 @@
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name.
 Version must be already installed."
-  (venv-workon (projectile-project-name)))
+  (venv-workon (projectile-project-name))
+  (let* ((project-name (projectile-project-name))
+         (virtualenv-path
+          (file-truename
+           (concat venv-location project-name))))
+    (when (file-directory-p virtualenv-path)
+      (setq python-shell-virtualenv-path virtualenv-path)))
+  )
 
 (add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
 
