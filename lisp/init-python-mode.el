@@ -8,21 +8,22 @@
 (require-package 'virtualenvwrapper)
 (venv-initialize-interactive-shells)
 (venv-initialize-eshell)
-(setq venv-location "/home/aziz/.virtualenvs/")
+(setq venv-location (concat (getenv "HOME") "/.virtualenvs/"))
 
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name.
 Version must be already installed."
-  (venv-workon (projectile-project-name))
-  (let* ((project-name (projectile-project-name))
-         (virtualenv-path
-          (file-truename
-           (concat venv-location project-name))))
-    (when (file-directory-p virtualenv-path)
-      (setq python-shell-virtualenv-path virtualenv-path)))
-  )
+  (if (boundp 'projectile-project-name)
+      (venv-workon (projectile-project-name))
+    (let* ((project-name (projectile-project-name))
+           (virtualenv-path
+            (file-truename
+             (concat venv-location project-name))))
+      (when (file-directory-p virtualenv-path)
+        (setq python-shell-virtualenv-path virtualenv-path)))
+    ))
 
-(add-hook 'projectile-switch-project-hook 'projectile-pyenv-mode-set)
+(add-hook 'python-mode-hook 'projectile-pyenv-mode-set)
 
 (require-package 'anaconda-mode)
 (require-package 'company-anaconda)
