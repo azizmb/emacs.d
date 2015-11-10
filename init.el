@@ -60,6 +60,7 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
+(require 'init-helm)
 (require 'init-projectile)
 
 (require 'init-recentf)
