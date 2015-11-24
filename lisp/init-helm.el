@@ -6,9 +6,8 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t
       helm-autoresize-mode                  t
-      helm-M-x-fuzzy-match                  t
-      helm-buffers-fuzzy-matching           t
-      helm-recentf-fuzzy-match              t
+      helm-mode-fuzzy-match                 t
+      helm-completion-in-region-fuzzy-match t
       )
 
 (global-set-key (kbd "C-c h o") 'helm-occur)
