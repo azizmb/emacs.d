@@ -13,6 +13,7 @@
 (require-package 'helm-ag)
 (require-package 'helm-company)
 (require-package 'helm-gitignore)
+(require-package 'swiper)
 (require-package 'swiper-helm)
 
 (global-set-key (kbd "C-s") 'swiper-helm)
