@@ -10,6 +10,12 @@
       helm-completion-in-region-fuzzy-match t
       )
 
+(require-package 'helm-ag)
+(require-package 'helm-company)
+(require-package 'helm-gitignore)
+(require-package 'swiper-helm)
+
+(global-set-key (kbd "C-s") 'swiper-helm)
 (global-set-key (kbd "C-c h o") 'helm-occur)
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-mini)
