@@ -120,6 +120,7 @@
 (require 'init-dash)
 (require 'init-ledger)
 (require 'init-docker)
+(require 'init-shell)
 
 ;; Extra packages which don't require any configuration
 (require-package 'gnuplot)
