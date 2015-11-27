@@ -1,3 +1,6 @@
 [submodule "lisp/snippets"]
 	path = lisp/snippets
 	url = git@github.com:AndreaCrotti/yasnippet-snippets.git
+[submodule "site-lisp/profile"]
+	path = site-lisp/profile
+	url = git@github.com:DamienCassou/profile.git
