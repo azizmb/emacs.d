@@ -2,6 +2,7 @@
 
 ;; http://rawsyntax.com/blog/learn-emacs-zsh-and-multi-term/
 
+(setq multi-term-program "/usr/bin/zsh")
 
 (add-hook 'term-mode-hook
           (lambda ()
@@ -13,5 +14,6 @@
             (setq term-buffer-maximum-size 10000)
             ))
 
+(global-set-key (kbd "s-s") 'multi-term)
 
 (provide 'init-shell)
