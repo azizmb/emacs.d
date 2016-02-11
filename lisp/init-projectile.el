@@ -15,5 +15,6 @@
 ;; (setq projectile-switch-project-action 'helm-projectile)
 (setq projectile-switch-project-action 'projectile-vc)
 
+(add-to-list 'projectile-globally-ignored-directories "node_modules")
 
 (provide 'init-projectile)
