@@ -12,8 +12,8 @@
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
 (define-key projectile-mode-map [?\s-g] 'helm-projectile-ag)
 
-(setq projectile-switch-project-action 'helm-projectile)
-;; (setq projectile-switch-project-action 'projectile-vc)
+;; (setq projectile-switch-project-action 'helm-projectile)
+(setq projectile-switch-project-action 'projectile-vc)
 
 
 (provide 'init-projectile)
