@@ -61,6 +61,7 @@
 (require 'init-ibuffer)
 (require 'init-flycheck)
 (require 'init-helm)
+(require 'init-helm-dash)
 (require 'init-projectile)
 
 (require 'init-recentf)
@@ -117,7 +118,6 @@
 
 (require 'init-misc)
 
-(require 'init-dash)
 (require 'init-ledger)
 (require 'init-docker)
 (require 'init-shell)
