@@ -131,6 +131,7 @@
   (require-package 'osx-location))
 (require-package 'regex-tool)
 (require-package 'graphviz-dot-mode)
+(require-package 'try)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
