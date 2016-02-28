@@ -15,4 +15,9 @@
 
 (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"              ;; personal snippets
+        "~/.emacs.d/lisp/snippets"         ;; the default collection
+        ))
+
 (provide 'init-yasnippet)
