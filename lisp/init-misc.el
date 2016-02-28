@@ -18,5 +18,12 @@
 (require-package 'twittering-mode)
 (setq twittering-icon-mode t)
 
+(require-package 'keyfreq)
+(setq keyfreq-excluded-commands
+      '(self-insert-command
+        previous-line
+        next-line))
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
 
 (provide 'init-misc)
