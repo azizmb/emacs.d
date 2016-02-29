@@ -98,6 +98,8 @@
 	     helm-semantic-fuzzy-match t
 	     helm-split-window-in-side-p t
 	     helm-recentf-fuzzy-match t
+	     helm-autoresize-max-height 25
+	     helm-autoresize-min-height 25
 	     )
 	    (helm-mode +1)
 	    (helm-autoresize-mode t)
@@ -201,7 +203,14 @@
 		 (setq golden-ratio-exclude-modes
 		       '("ediff-mode"
 			 "eshell-mode"
-			 "dired-mode"))))
+			 "dired-mode"))
+
+		 ;; http://tuhdo.github.io/helm-intro.html#sec-4
+		 (defun my/helm-alive-p ()
+		   (if (boundp 'helm-alive-p)
+		       (symbol-value 'helm-alive-p)))
+
+		 (add-to-list 'golden-ratio-inhibit-functions 'my/helm-alive-p)))
 
 
 (use-package whitespace-cleanup-mode
