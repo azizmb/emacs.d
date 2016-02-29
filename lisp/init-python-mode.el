@@ -9,7 +9,46 @@
 	      (progn
 		(venv-initialize-interactive-shells)
 		(venv-initialize-eshell)
-		(add-hook 'python-mode-hook 'projectile-pyenv-mode-set)))
+
+		(if (getenv "WORKON_HOME")
+		    (setq venv-location (getenv "WORKON_HOME"))
+		  (message "WORKON_HOME env variable not set."))
+
+		(defun project-directory (buffer-name)
+		  "Returns the root directory of the project that
+		  contains the given buffer. Any directory with a .git
+		  file/directory is considered to be a project root."
+		  (interactive)
+		  (let ((root-dir (file-name-directory buffer-name)))
+		    (while (and root-dir
+				(not (file-exists-p (concat root-dir ".git"))))
+		      (setq root-dir
+			    (if (equal root-dir "/")
+				nil
+			      (file-name-directory (directory-file-name root-dir)))))
+		    root-dir))
+
+		(defun project-name (buffer-name)
+		  "Returns the name of the project that contains the given buffer."
+		  (let ((root-dir (project-directory buffer-name)))
+		    (if root-dir
+			(file-name-nondirectory
+			 (directory-file-name root-dir))
+		      nil)))
+
+		(defun setup-venv ()
+		  "Activates the virtualenv of the current buffer."
+		  (let ((project-name (if (boundp 'projectile-project-name)
+					  (projectile-project-name)
+					(project-name buffer-file-name))))
+		    (if (and project-name (file-exists-p (concat venv-location "/" project-name)))
+			(venv-workon project-name)
+		      (message "Failed to activate virtualenv")
+		      (venv-deactivate))))
+
+		(add-hook 'python-mode-hook 'setup-venv)
+
+		(setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))))
 
 	    (use-package python-django :ensure t)
 
@@ -33,19 +72,6 @@
 
 (use-package django-snippets :ensure t)
 
-(setq venv-location (concat (getenv "HOME") "/.virtualenvs/"))
-
-(defun projectile-pyenv-mode-set ()
-  "Set pyenv version matching project name.
-Version must be already installed."
-  (if (boundp 'projectile-project-name)
-      (venv-workon (projectile-project-name))))
-    (let* ((project-name (projectile-project-name))
-	   (virtualenv-path
-	    (file-truename
-	     (concat venv-location project-name))))
-      (when (file-directory-p virtualenv-path)
-	(setq python-shell-virtualenv-path virtualenv-path)))
 
 
 ;; ;;----------------------------------------------------------------------------
