@@ -243,7 +243,7 @@
 
 (use-package drag-stuff
   :ensure t
-  :config (drag-stuff-mode t))
+  :config (drag-stuff-global-mode t))
 
 
 (use-package company
@@ -298,6 +298,8 @@
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq debug-on-error t)
 (delete-selection-mode t)
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-echo-area-message t)
 
 (global-set-key [remap execute-extended-command] #'helm-M-x)
 (global-set-key [remap switch-to-buffer] #'helm-mini)
