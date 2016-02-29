@@ -295,6 +295,21 @@
   :mode ("Cask" . emacs-lisp-mode))
 
 
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html?\\'" . web-mode)
+  :config (progn
+	    (setq web-mode-markup-indent-offset 4)
+	    (setq web-mode-css-indent-offset 4)
+	    (setq web-mode-code-indent-offset 4)
+	    (setq web-mode-enable-current-column-highlight t)
+	    (setq web-mode-enable-current-element-highlight t)
+	    (setq web-mode-enable-auto-closing t)
+	    (setq web-mode-enable-auto-pairing t)
+	    (setq web-mode-engines-alist
+		  '(("django"    . ".*/templates/.*\\.html\\'")))))
+
+
 ;; (require 'init-yasnippet)
 (require 'init-python-mode)
 
