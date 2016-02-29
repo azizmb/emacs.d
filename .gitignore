@@ -1,0 +1,12 @@
+*~
+elpa/
+
+history
+
+projectile.cache
+.session
+.mc-lists.el
+
+.emacs.desktop
+
+anaconda-mode/
