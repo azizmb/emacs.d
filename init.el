@@ -361,6 +361,9 @@ point reaches the beginning or end of the buffer, stop there."
 	    (line-beginning-position 2)))))
 
 
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+
 (add-hook 'after-init-hook 'server-start t)
 
 
