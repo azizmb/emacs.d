@@ -156,6 +156,15 @@
 	      :config (fullframe projectile-vc magit-mode-quit-window))))
 
 
+(use-package flycheck
+  :ensure t :pin melpa-stable
+  :init (add-hook 'after-init-hook 'global-flycheck-mode)
+  :config (progn
+	    (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+	    (setq flycheck-idle-change-delay 0.8)
+	    (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)))
+
+
 ;; (use-package diff-hl
 ;;   :defer t
 ;;   :ensure t
