@@ -174,6 +174,19 @@
   :ensure t)
 
 
+(use-package golden-ratio
+  :defer t
+  :diminish golden-ratio-mode
+  :ensure t
+  :init (golden-ratio-mode 1)
+  :config (progn (setq golden-ratio-auto-scale t)
+		 (setq split-width-threshold nil)
+		 (setq golden-ratio-exclude-modes
+		       '("ediff-mode"
+			 "eshell-mode"
+			 "dired-mode"))))
+
+
 (use-package whitespace-cleanup-mode
   :ensure t
   :config (global-whitespace-cleanup-mode t))
