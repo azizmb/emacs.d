@@ -6,8 +6,12 @@
 
 (setq package-enable-at-startup nil)
 
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -35,7 +39,7 @@
 
 
 (use-package projectile
-  :ensure t
+  :ensure t :pin melpa-stable
   :defer t
   :diminish projectile-mode
   :init (add-hook 'after-init-hook 'projectile-global-mode)
@@ -53,7 +57,7 @@
 
 
 (use-package helm
-  :ensure t
+  :ensure t :pin melpa-stable
   :diminish helm-mode
   :config (progn
 	    (use-package helm-config
@@ -141,7 +145,7 @@
 
 
 (use-package magit
-  :ensure t
+  :ensure t :pin melpa-stable
   :bind ("C-x g" . magit-status)
   :config (progn
 	    (setq magit-default-tracking-name-function 'magit-default-tracking-name-branch-only)
