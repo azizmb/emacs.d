@@ -34,12 +34,6 @@
   :config (load-theme 'zenburn :no-confirm))
 
 
-(use-package helm-config
-  :demand
-  :bind-keymap ("C-c h" . helm-command-map))
-
-
-
 (use-package projectile
   :ensure t
   :defer t
@@ -61,85 +55,89 @@
 (use-package helm
   :ensure t
   :diminish helm-mode
-  :config
-    ;; Some custom helm bindings
-    (define-key helm-command-map (kbd "a") 'helm-apropos)
-    ;; c helm-colors
-    (define-key helm-command-map (kbd "d") 'helm-browse-project)
-    ;; e helm-etags-select
-    ;; f helm-multi-files
-    ;; h help
-    ;; i helm-semantic-or-imenu
-    ;; l helm-locate
-    ;; m helm-man-woman
-    (define-key helm-command-map (kbd "SPC") 'helm-all-mark-rings)
-    ;; r helm-regexp
-    ;; s helm-surfraw
-    ;; t helm-top
+  :config (progn
+	    (use-package helm-config
+	      :demand
+	      :bind-keymap ("C-c h" . helm-command-map))
 
-    ;; rebind tab to run persistent action
-    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-    ;; make TAB works in terminal
-    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-    ;; list actions using C-z
-    (define-key helm-map (kbd "C-z")  'helm-select-action)
+	    ;; Some custom helm bindings
+	    (define-key helm-command-map (kbd "a") 'helm-apropos)
+	    ;; c helm-colors
+	    (define-key helm-command-map (kbd "d") 'helm-browse-project)
+	    ;; e helm-etags-select
+	    ;; f helm-multi-files
+	    ;; h help
+	    ;; i helm-semantic-or-imenu
+	    ;; l helm-locate
+	    ;; m helm-man-woman
+	    (define-key helm-command-map (kbd "SPC") 'helm-all-mark-rings)
+	    ;; r helm-regexp
+	    ;; s helm-surfraw
+	    ;; t helm-top
 
-    (setq
-     helm-M-x-fuzzy-match t
-     helm-buffers-fuzzy-matching t
-     helm-completion-in-region-fuzzy-match t
-     helm-ff-file-name-history-use-recentf t
-     helm-ff-search-library-in-sexp t
-     helm-imenu-fuzzy-match    t
-     helm-mode-fuzzy-match t
-     helm-scroll-amount 8
-     helm-semantic-fuzzy-match t
-     helm-split-window-in-side-p t
-     helm-recentf-fuzzy-match t
-     )
-    (helm-mode +1)
-    (helm-autoresize-mode t)
+	    ;; rebind tab to run persistent action
+	    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+	    ;; make TAB works in terminal
+	    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+	    ;; list actions using C-z
+	    (define-key helm-map (kbd "C-z")  'helm-select-action)
 
-    (use-package helm-ag
-      :ensure t
-      :config
-      (setq helm-ag-fuzzy-match t))
+	    (setq
+	     helm-M-x-fuzzy-match t
+	     helm-buffers-fuzzy-matching t
+	     helm-completion-in-region-fuzzy-match t
+	     helm-ff-file-name-history-use-recentf t
+	     helm-ff-search-library-in-sexp t
+	     helm-imenu-fuzzy-match    t
+	     helm-mode-fuzzy-match t
+	     helm-scroll-amount 8
+	     helm-semantic-fuzzy-match t
+	     helm-split-window-in-side-p t
+	     helm-recentf-fuzzy-match t
+	     )
+	    (helm-mode +1)
+	    (helm-autoresize-mode t)
 
-    (use-package helm-projectile
-      :ensure t
-      :config
-      (helm-projectile-on)
-      (setq projectile-completion-system 'helm
-	helm-projectile-fuzzy-match t)
+	    (use-package helm-ag
+	      :ensure t
+	      :config
+	      (setq helm-ag-fuzzy-match t))
 
-      (setq projectile-switch-project-action 'projectile-vc)
+	    (use-package helm-projectile
+	      :ensure t
+	      :config
+	      (helm-projectile-on)
+	      (setq projectile-completion-system 'helm
+		    helm-projectile-fuzzy-match t)
 
-      (define-key projectile-mode-map (kbd "s-g") 'helm-projectile-ag)
-      (define-key helm-command-map (kbd "p") 'helm-projectile))
+	      (setq projectile-switch-project-action 'projectile-vc)
 
-    (use-package helm-flycheck
-      :ensure t
-      :config
-      (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+	      (define-key projectile-mode-map (kbd "s-g") 'helm-projectile-ag)
+	      (define-key helm-command-map (kbd "p") 'helm-projectile))
 
-    (use-package helm-swoop
-      :ensure t
-      :bind
-      (("C-S-s" . helm-swoop)
-       ("M-i" . helm-swoop)
-       ("M-I" . helm-swoop-back-to-last-point)
-       ("C-c M-i" . helm-multi-swoop)
-       ("C-x M-i" . helm-multi-swoop-all))
-      :config
-      (progn
-	(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-	(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)))
+	    (use-package helm-flycheck
+	      :ensure t
+	      :config
+	      (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
-    (use-package helm-descbinds
-      :defer t
-      :ensure t
-      :bind (("C-h b" . helm-descbinds)
-	     ("C-h w" . helm-descbinds))))
+	    (use-package helm-swoop
+	      :ensure t
+	      :bind
+	      (("C-S-s" . helm-swoop)
+	       ("M-i" . helm-swoop)
+	       ("M-I" . helm-swoop-back-to-last-point)
+	       ("C-c M-i" . helm-multi-swoop)
+	       ("C-x M-i" . helm-multi-swoop-all))
+	      :config
+	      (progn
+		(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+		(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)))
+
+	    (use-package helm-descbinds
+	      :defer t
+	      :ensure t
+	      :bind (("C-h b" . helm-descbinds)
+		     ("C-h w" . helm-descbinds)))))
 
 
 (use-package magit
