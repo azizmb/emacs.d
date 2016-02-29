@@ -174,6 +174,10 @@
   :ensure t)
 
 
+(use-package git-timemachine
+  :ensure t)
+
+
 (use-package golden-ratio
   :defer t
   :diminish golden-ratio-mode
