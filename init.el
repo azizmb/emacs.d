@@ -342,6 +342,41 @@
 
 
 ;; (require 'init-yasnippet)
+
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C->" . mc/mark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)))
+
+
+(use-package popwin
+  :ensure t
+  :config (popwin-mode 1))
+
+
+(use-package saveplace
+  :config (progn
+	    (setq-default save-place t)
+	    (setq save-place-file (f-join etc-dir "saved-require"))))
+
+
+(use-package discover
+  :ensure t
+  :init (global-discover-mode 1))
+
+
+(use-package git-gutter
+  :ensure t
+  :defer t
+  :diminish git-gutter-mode
+  :functions global-git-gutter-mode
+  :init (global-git-gutter-mode +1)
+  :bind (("C-x q" . git-gutter:revert-hunk)
+	 ("C-x x" . git-gutter:popup-diff)
+	 ("C-c C-s" . git-gutter:stage-hunk)
+	 ("C-x p" . git-gutter:previous-hunk)
+	 ("C-x n" . git-gutter:next-hunk)))
 (require 'init-python-mode)
 
 
