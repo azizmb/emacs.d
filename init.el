@@ -1,3 +1,10 @@
+(mapc
+ (lambda (mode)
+   (when (fboundp mode)
+     (funcall mode -1)))
+ '(tool-bar-mode scroll-bar-mode))
+
+
 (require 'package)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -35,13 +42,6 @@
 
 (use-package f
   :ensure t)
-
-
-(mapc
- (lambda (mode)
-   (when (fboundp mode)
-     (funcall mode -1)))
- '(tool-bar-mode scroll-bar-mode))
 
 
 (use-package zenburn-theme
