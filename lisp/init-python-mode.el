@@ -14,26 +14,14 @@
 		    (setq venv-location (getenv "WORKON_HOME"))
 		  (message "WORKON_HOME env variable not set."))
 
-		(defun project-directory (buffer-name)
-		  "Returns the root directory of the project that
-		  contains the given buffer. Any directory with a .git
-		  file/directory is considered to be a project root."
-		  (interactive)
-		  (let ((root-dir (file-name-directory buffer-name)))
-		    (while (and root-dir
-				(not (file-exists-p (concat root-dir ".git"))))
-		      (setq root-dir
-			    (if (equal root-dir "/")
-				nil
-			      (file-name-directory (directory-file-name root-dir)))))
-		    root-dir))
+		(defun project-directory (dir)
+		  (f--traverse-upwards (f-dir? (f-expand ".git" it)) dir))
 
 		(defun project-name (buffer-name)
 		  "Returns the name of the project that contains the given buffer."
-		  (let ((root-dir (project-directory buffer-name)))
+		  (let ((root-dir (project-directory (file-name-directory buffer-name))))
 		    (if root-dir
-			(file-name-nondirectory
-			 (directory-file-name root-dir))
+			(f-filename root-dir)
 		      nil)))
 
 		(defun setup-venv ()
@@ -41,7 +29,7 @@
 		  (let ((project-name (if (boundp 'projectile-project-name)
 					  (projectile-project-name)
 					(project-name buffer-file-name))))
-		    (if (and project-name (file-exists-p (concat venv-location "/" project-name)))
+		    (if (and project-name (f-directory? (f-join venv-location "/" project-name)))
 			(venv-workon project-name)
 		      (message "Failed to activate virtualenv")
 		      (venv-deactivate))))

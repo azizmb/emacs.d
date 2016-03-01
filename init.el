@@ -2,6 +2,14 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+
+(setq root-dir (file-name-directory
+		(or (buffer-file-name) load-file-name)))
+
+(setq etc-dir (file-name-as-directory (concat root-dir "etc")))
+
+(make-directory etc-dir t)
+
 (require 'init-benchmarking)
 
 (setq package-enable-at-startup nil)
@@ -25,6 +33,9 @@
 (use-package bind-key
   :ensure t)
 
+(use-package f
+  :ensure t)
+
 
 (mapc
  (lambda (mode)
@@ -43,14 +54,16 @@
   :defer t
   :diminish projectile-mode
   :init (add-hook 'after-init-hook 'projectile-global-mode)
-  :config
-    (setq projectile-enable-caching t)
-    (setq projectile-require-project-root nil)
+  :config (progn
+	    (setq projectile-enable-caching t)
+	    (setq projectile-require-project-root nil)
+	    (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
+	    (setq projectile-known-projects-file (f-join etc-dir "projectile-known-projects-file"))
 
-    (add-to-list 'projectile-globally-ignored-files "node_modules")
+	    (add-to-list 'projectile-globally-ignored-files "node_modules")
 
-    (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
-    (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file)
+	    (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
+	    (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file))
   :bind
     ("s-/" . projectile-switch-project)
 )

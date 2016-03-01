@@ -3,9 +3,10 @@ elpa/
 
 history
 
-projectile.cache
 .session
 .mc-lists.el
+
+etc/
 
 .emacs.desktop
 
