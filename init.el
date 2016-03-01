@@ -345,18 +345,19 @@
 (require 'init-python-mode)
 
 
+(column-number-mode 1)
+(delete-selection-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'yes-or-no-p)
 (setq debug-on-error t)
-(delete-selection-mode t)
-(setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-screen t)
 
 
 (global-set-key [remap execute-extended-command] #'helm-M-x)
-(global-set-key [remap switch-to-buffer] #'helm-mini)
 (global-set-key [remap find-file] #'helm-find-files)
 (global-set-key [remap list-buffers] #'helm-mini)
+(global-set-key [remap switch-to-buffer] #'helm-mini)
 (global-set-key [remap yank-pop] #'helm-show-kill-ring)
 
 
