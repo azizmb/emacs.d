@@ -339,14 +339,28 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 
+
 (global-set-key [remap execute-extended-command] #'helm-M-x)
 (global-set-key [remap switch-to-buffer] #'helm-mini)
 (global-set-key [remap find-file] #'helm-find-files)
 (global-set-key [remap list-buffers] #'helm-mini)
 (global-set-key [remap yank-pop] #'helm-show-kill-ring)
 
+
 (setq display-time-24hr-format t display-time-day-and-date nil)
 (display-time)
+
+
+;; https://github.com/ghoseb/dotemacs/blob/f72cd04aa09f82551c217f85873a7cc3506fec15/misc.el#L14
+(defun th-activate-mark-init ()
+  (setq cursor-type 'bar))
+
+(add-hook 'activate-mark-hook 'th-activate-mark-init)
+
+(defun th-deactivate-mark-init ()
+  (setq cursor-type 'box))
+
+(add-hook 'deactivate-mark-hook 'th-deactivate-mark-init)
 
 
 ;; http://stackoverflow.com/a/27749009/285614
