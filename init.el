@@ -57,13 +57,13 @@
   :config (progn
 	    (setq projectile-enable-caching t)
 	    (setq projectile-require-project-root nil)
-	    (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
-	    (setq projectile-known-projects-file (f-join etc-dir "projectile-known-projects-file"))
+            ;; (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
+            ;; (setq projectile-known-projects-file (f-join etc-dir "projectile-known-projects-file"))
 
-	    (add-to-list 'projectile-globally-ignored-files "node_modules")
+            (add-to-list 'projectile-globally-ignored-files "node_modules")
 
-	    (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
-	    (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file))
+            (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
+            (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file))
   :bind
     ("s-/" . projectile-switch-project)
 )
