@@ -4,11 +4,7 @@
      (funcall mode -1)))
  '(tool-bar-mode scroll-bar-mode))
 
-
-(require 'package)
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
 
 (setq root-dir (file-name-directory
 		(or (buffer-file-name) load-file-name)))
@@ -19,38 +15,18 @@
 
 (require 'init-benchmarking)
 
-(setq package-enable-at-startup nil)
 
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(use-package diminish
-  :ensure t)
-
-(use-package bind-key
-  :ensure t)
-
-(use-package f
-  :ensure t)
+(require 'pallet)
+(pallet-mode t)
 
 
 (use-package zenburn-theme
-  :ensure t
   :config (load-theme 'zenburn :no-confirm))
 
-
 (use-package projectile
-  :ensure t :pin melpa-stable
   :defer t
   :diminish projectile-mode
   :init (add-hook 'after-init-hook 'projectile-global-mode)
@@ -70,7 +46,6 @@
 
 
 (use-package helm
-  :ensure t :pin melpa-stable
   :diminish helm-mode
   :config (progn
 	    (use-package helm-config
@@ -118,12 +93,10 @@
 	    (helm-autoresize-mode t)
 
 	    (use-package helm-ag
-	      :ensure t
 	      :config
 	      (setq helm-ag-fuzzy-match t))
 
 	    (use-package helm-projectile
-	      :ensure t
 	      :config
 	      (helm-projectile-on)
 	      (setq projectile-completion-system 'helm
@@ -135,12 +108,10 @@
 	      (define-key helm-command-map (kbd "p") 'helm-projectile))
 
 	    (use-package helm-flycheck
-	      :ensure t
 	      :config
 	      (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
 	    (use-package helm-swoop
-	      :ensure t
 	      :bind
 	      (("C-S-s" . helm-swoop)
 	       ("M-i" . helm-swoop)
@@ -154,25 +125,21 @@
 
 	    (use-package helm-descbinds
 	      :defer t
-	      :ensure t
 	      :bind (("C-h b" . helm-descbinds)
 		     ("C-h w" . helm-descbinds)))))
 
 
 (use-package magit
-  :ensure t :pin melpa-stable
   :bind ("C-x g" . magit-status)
   :config (progn
 	    (setq magit-default-tracking-name-function 'magit-default-tracking-name-branch-only)
 	    (setq magit-set-upstream-on-push t)
 
 	    (use-package fullframe
-	      :ensure t
 	      :config (fullframe projectile-vc magit-mode-quit-window))))
 
 
 (use-package flycheck
-  :ensure t :pin melpa-stable
   :init (add-hook 'after-init-hook 'global-flycheck-mode)
   :config (progn
 	    (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
@@ -198,18 +165,9 @@
 (put 'downcase-region 'disabled nil)
 
 
-(use-package dired+
-  :ensure t)
-
-
-(use-package git-timemachine
-  :ensure t)
-
-
 (use-package golden-ratio
   :defer t
   :diminish golden-ratio-mode
-  :ensure t
   :init (golden-ratio-mode 1)
   :config (progn (setq golden-ratio-auto-scale t)
 		 (setq split-width-threshold nil)
@@ -227,17 +185,14 @@
 
 
 (use-package whitespace-cleanup-mode
-  :ensure t
   :config (global-whitespace-cleanup-mode t))
 
 
 (use-package expand-region
-  :ensure t
   :bind ("C-=" . er/expand-region))
 
 
 (use-package keyfreq
-  :ensure t
   :config
   (setq keyfreq-excluded-commands
 		  '(self-insert-command
@@ -257,7 +212,6 @@
 
 (use-package undo-tree
   :defer t
-  :ensure t
   :diminish undo-tree-mode
   :config
   (progn
@@ -269,7 +223,6 @@
 
 (use-package guide-key
   :diminish guide-key-mode
-  :ensure t
   :config
   (progn
   (setq guide-key/guide-key-sequence '("C-x" "C-x r" "C-x 4" "C-c" "C-c p" "C-c h" "C-h"))
@@ -277,19 +230,16 @@
 
 
 (use-package drag-stuff
-  :ensure t
   :diminish drag-stuff-mode
   :config (drag-stuff-global-mode t))
 
 
 (use-package company
-  :ensure t
   :defer t
   :diminish company-mode " Ⓒ"
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config (progn
 	    (use-package company-quickhelp
-	      :ensure t
 	      :init (company-quickhelp-mode t))
 
 	    (setq company-idle-delay 1)
@@ -327,7 +277,6 @@
 
 
 (use-package web-mode
-  :ensure t
   :mode ("\\.html?\\'" . web-mode)
   :config (progn
 	    (setq web-mode-markup-indent-offset 4)
@@ -345,13 +294,11 @@
 
 
 (use-package multiple-cursors
-  :ensure t
   :bind (("C->" . mc/mark-next-like-this)
 	 ("C-<" . mc/mark-previous-like-this)))
 
 
 (use-package popwin
-  :ensure t
   :config (popwin-mode 1))
 
 
@@ -362,12 +309,10 @@
 
 
 (use-package discover
-  :ensure t
   :init (global-discover-mode 1))
 
 
 (use-package git-gutter
-  :ensure t
   :defer t
   :diminish git-gutter-mode
   :functions global-git-gutter-mode
@@ -377,6 +322,8 @@
 	 ("C-c C-s" . git-gutter:stage-hunk)
 	 ("C-x p" . git-gutter:previous-hunk)
 	 ("C-x n" . git-gutter:next-hunk)))
+
+
 (require 'init-python-mode)
 
 

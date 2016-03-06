@@ -1,10 +1,7 @@
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :config (progn
-	    (use-package pip-requirements :ensure t)
-
 	    (use-package virtualenvwrapper
-	      :ensure t
 	      :config
 	      (progn
 		(venv-initialize-interactive-shells)
@@ -38,27 +35,19 @@
 
 		(setq-default mode-line-format (cons '(:exec venv-current-name) mode-line-format))))
 
-	    (use-package python-django :ensure t)
-
 	    (use-package pony-mode
-	      :ensure t
 	      :config
 	      (add-hook 'python-mode-hook 'pony-reload-mode))
 
 	    (use-package anaconda-mode
-	      :ensure t
 	      :config (progn
 			(use-package company-anaconda
-			  :ensure t
 			  :config
 			  (with-eval-after-load 'company
 			    (add-to-list 'company-backends 'company-anaconda)))
 			(add-hook 'python-mode-hook 'anaconda-mode)
 			(add-hook 'python-mode-hook 'anaconda-eldoc-mode)))
 	    ))
-
-
-(use-package django-snippets :ensure t)
 
 
 
