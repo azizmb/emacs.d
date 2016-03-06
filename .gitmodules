@@ -1,0 +1,3 @@
+[submodule "yasn-snippets"]
+	path = yasn-snippets
+	url = git@github.com:AndreaCrotti/yasnippet-snippets.git

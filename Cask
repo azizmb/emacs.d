@@ -49,4 +49,5 @@
 (depends-on "virtualenvwrapper")
 (depends-on "web-mode")
 (depends-on "whitespace-cleanup-mode")
+(depends-on "yasnippet")
 (depends-on "zenburn-theme")

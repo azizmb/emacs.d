@@ -43,10 +43,10 @@
 	    (setq projectile-enable-caching t)
 	    (setq projectile-require-project-root nil)
 
-            (add-to-list 'projectile-globally-ignored-files "node_modules")
+	    (add-to-list 'projectile-globally-ignored-files "node_modules")
 
-            (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
-            (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file))
+	    (define-key projectile-mode-map (kbd "s-d") 'projectile-find-dir)
+	    (define-key projectile-mode-map (kbd "s-f") 'projectile-find-file))
   :bind
     ("s-/" . projectile-switch-project)
 )
@@ -249,26 +249,8 @@
 	    (use-package company-quickhelp
 	      :init (company-quickhelp-mode t))
 
-	    (setq company-idle-delay 1)
-	    (setq company-minimum-prefix-length 1)
-
-	    ;; https://github.com/glucas/emacs.d/blob/fd605ca55435be4c97a43286df5f0b7257097ab5/init.el#L959
-	    ;; Integrate with indent-for-tab-command
-	    (progn
-	      (defvar completion-at-point-functions-saved nil)
-
-	      (defun company-indent-for-tab-command (&optional arg)
-		(interactive "P")
-		(let ((completion-at-point-functions-saved completion-at-point-functions)
-		      (completion-at-point-functions '(company-complete-common-wrapper)))
-		  (indent-for-tab-command arg)))
-
-	      (defun company-complete-common-wrapper ()
-		(let ((completion-at-point-functions completion-at-point-functions-saved))
-		  (company-complete-common)))
-
-	      (bind-key [remap indent-for-tab-command] #'company-indent-for-tab-command company-mode-map))
-	    ))
+	    (setq company-idle-delay 0)
+	    (setq company-minimum-prefix-length 1)))
 
 
 (use-package emacs-lisp-mode
@@ -293,11 +275,7 @@
 	    (setq web-mode-enable-current-element-highlight t)
 	    (setq web-mode-enable-auto-closing t)
 	    (setq web-mode-enable-auto-pairing t)
-	    (setq web-mode-engines-alist
-		  '(("django"    . ".*/templates/.*\\.html\\'")))))
-
-
-;; (require 'init-yasnippet)
+	    (setq web-mode-engines-alist '(("django"    . ".*/templates/.*\\.html\\'")))))
 
 
 (use-package multiple-cursors
@@ -325,10 +303,30 @@
   :functions global-git-gutter-mode
   :init (global-git-gutter-mode +1)
   :bind (("C-x q" . git-gutter:revert-hunk)
-	 ("C-x x" . git-gutter:popup-diff)
+	 ("C-x x" . git-gutter:popup-hunk)
 	 ("C-c C-s" . git-gutter:stage-hunk)
 	 ("C-x p" . git-gutter:previous-hunk)
 	 ("C-x n" . git-gutter:next-hunk)))
+
+
+(use-package yasnippet
+  :defer t
+  :diminish yas-minor-mode
+  :init (yas-global-mode 1)
+  :config (progn
+	    ;; Add yasnippet support for all company backends
+	    ;; https://github.com/syl20bnr/spacemacs/pull/179
+	    (defvar company-mode/enable-yas t
+	      "Enable yasnippet for all backends.")
+
+	    (defun company-mode/backend-with-yas (backend)
+	      (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+		  backend
+		(append (if (consp backend) backend (list backend))
+			'(:with company-yasnippet))))
+
+	    (with-eval-after-load 'company
+	      (add-to-list 'company-backends 'company-mode/backend-with-yas))))
 
 
 (load-local "python")
