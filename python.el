@@ -74,5 +74,3 @@
 ;;             (set-fill-column 79)))
 
 ;; (add-hook 'python-mode-hook 'fci-mode)
-
-(provide 'init-python-mode)

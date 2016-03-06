@@ -331,7 +331,7 @@
 	 ("C-x n" . git-gutter:next-hunk)))
 
 
-(load-local "lisp/init-python-mode")
+(load-local "python")
 
 
 (column-number-mode 1)
