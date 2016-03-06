@@ -1,10 +1,11 @@
+;;; init.el - Aziz M. Bookwala -*- lexical-binding: t; -*-
+
 (mapc
  (lambda (mode)
    (when (fboundp mode)
      (funcall mode -1)))
  '(tool-bar-mode scroll-bar-mode))
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (setq root-dir (file-name-directory
 		(or (buffer-file-name) load-file-name)))
@@ -13,8 +14,6 @@
 
 (make-directory etc-dir t)
 
-(require 'init-benchmarking)
-
 
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
@@ -22,6 +21,13 @@
 (require 'pallet)
 (pallet-mode t)
 
+(require 'f)
+(require 'use-package)
+
+(setq default-directory (f-full (getenv "HOME")))
+
+(defun load-local (file)
+  (load (f-expand file user-emacs-directory)))
 
 (use-package zenburn-theme
   :config (load-theme 'zenburn :no-confirm))
@@ -324,7 +330,7 @@
 	 ("C-x n" . git-gutter:next-hunk)))
 
 
-(require 'init-python-mode)
+(load-local "lisp/init-python-mode")
 
 
 (column-number-mode 1)
@@ -415,12 +421,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 
 (add-hook 'after-init-hook 'server-start t)
-
-
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (message "init completed in %.2fms"
-		     (my/time-subtract-millis after-init-time before-init-time))))
 
 
 (provide 'init)
