@@ -35,12 +35,13 @@
 (use-package projectile
   :defer t
   :diminish projectile-mode
-  :init (add-hook 'after-init-hook 'projectile-global-mode)
+  :init (progn
+	  (add-hook 'after-init-hook 'projectile-global-mode)
+	  (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
+	  (setq projectile-known-projects-file (f-join etc-dir "projectile-bookmarks.eld")))
   :config (progn
 	    (setq projectile-enable-caching t)
 	    (setq projectile-require-project-root nil)
-            ;; (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
-            ;; (setq projectile-known-projects-file (f-join etc-dir "projectile-known-projects-file"))
 
             (add-to-list 'projectile-globally-ignored-files "node_modules")
 
@@ -311,7 +312,7 @@
 (use-package saveplace
   :config (progn
 	    (setq-default save-place t)
-	    (setq save-place-file (f-join etc-dir "saved-require"))))
+	    (setq save-place-file (f-join etc-dir "saved-places"))))
 
 
 (use-package discover
