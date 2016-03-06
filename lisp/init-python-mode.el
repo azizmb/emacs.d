@@ -12,7 +12,7 @@
 		  (message "WORKON_HOME env variable not set."))
 
 		(defun project-directory (dir)
-		  (f--traverse-upwards (f-dir? (f-expand ".git" it)) dir))
+		  (f-traverse-upwards (f-dir? (f-expand ".git" it)) dir))
 
 		(defun project-name (buffer-name)
 		  "Returns the name of the project that contains the given buffer."
@@ -26,7 +26,7 @@
 		  (let ((project-name (if (boundp 'projectile-project-name)
 					  (projectile-project-name)
 					(project-name buffer-file-name))))
-		    (if (and project-name (f-directory? (f-join venv-location "/" project-name)))
+		    (if (and project-name (f-directory? (f-join venv-location project-name)))
 			(venv-workon project-name)
 		      (message "Failed to activate virtualenv")
 		      (venv-deactivate))))
