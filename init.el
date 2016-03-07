@@ -138,12 +138,12 @@
 
 (use-package magit
   :bind ("C-x g" . magit-status)
+  :init (progn
+	 (use-package fullframe
+	    :config (fullframe projectile-vc magit-mode-quit-window)))
   :config (progn
 	    (setq magit-default-tracking-name-function 'magit-default-tracking-name-branch-only)
-	    (setq magit-set-upstream-on-push t)
-
-	    (use-package fullframe
-	      :config (fullframe projectile-vc magit-mode-quit-window))))
+	    (setq magit-set-upstream-on-push t)))
 
 
 (use-package flycheck
@@ -192,7 +192,7 @@
 
 
 (use-package whitespace-cleanup-mode
-  :config (global-whitespace-cleanup-mode t))
+  :init (global-whitespace-cleanup-mode t))
 
 
 (use-package expand-region
@@ -200,45 +200,43 @@
 
 
 (use-package keyfreq
-  :config
-  (setq keyfreq-excluded-commands
+  :init (keyfreq-mode 1)
+  :config (progn
+	    (setq keyfreq-excluded-commands
 		  '(self-insert-command
 		    previous-line
 		    next-line))
-	    (keyfreq-mode 1)
-	    (keyfreq-autosave-mode 1))
+	    (keyfreq-autosave-mode 1)))
 
 
 (use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'reverse)
-  (setq uniquify-separator " • ")
-  (setq uniquify-after-kill-buffer-p t)
-  (setq uniquify-ignore-buffers-re "^\\*"))
+  :config (progn
+	    (setq uniquify-buffer-name-style 'reverse)
+	    (setq uniquify-separator " • ")
+	    (setq uniquify-after-kill-buffer-p t)
+	    (setq uniquify-ignore-buffers-re "^\\*")))
 
 
 (use-package undo-tree
   :defer t
   :diminish undo-tree-mode
-  :config
-  (progn
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t))
+  :init (global-undo-tree-mode)
+  :config (progn
+	    (setq undo-tree-visualizer-timestamps t)
+	    (setq undo-tree-visualizer-diff t))
   :bind ("C-c u" . undo-tree-visualize))
 
 
 (use-package guide-key
   :diminish guide-key-mode
-  :config
-  (progn
-  (setq guide-key/guide-key-sequence '("C-x" "C-x r" "C-x 4" "C-c" "C-c p" "C-c h" "C-h"))
-  (guide-key-mode 1)))
+  :init (guide-key-mode 1)
+  :config (progn
+	    (setq guide-key/guide-key-sequence '("C-x" "C-x r" "C-x 4" "C-c" "C-c p" "C-c h" "C-h"))))
 
 
 (use-package drag-stuff
   :diminish drag-stuff-mode
-  :config (drag-stuff-global-mode t))
+  :init (drag-stuff-global-mode t))
 
 
 (use-package company
@@ -255,8 +253,7 @@
 
 (use-package emacs-lisp-mode
   :defer t
-  :init
-  (progn
+  :init (progn
     (use-package eldoc
       :diminish eldoc-mode
       :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)))
@@ -284,11 +281,11 @@
 
 
 (use-package popwin
-  :config (popwin-mode 1))
+  :init (popwin-mode 1))
 
 
 (use-package saveplace
-  :config (progn
+  :init (progn
 	    (setq-default save-place t)
 	    (setq save-place-file (f-join etc-dir "saved-places"))))
 
@@ -300,7 +297,6 @@
 (use-package git-gutter
   :defer t
   :diminish git-gutter-mode
-  :functions global-git-gutter-mode
   :init (global-git-gutter-mode +1)
   :bind (("C-x q" . git-gutter:revert-hunk)
 	 ("C-x x" . git-gutter:popup-hunk)
