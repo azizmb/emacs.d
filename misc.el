@@ -84,4 +84,8 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 
+(setq browse-url-browser-function 'browse-url-generic)
+(setq browse-url-generic-program "google-chrome")
+
+
 (add-hook 'after-init-hook 'server-start t)
