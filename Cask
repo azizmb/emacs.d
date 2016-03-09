@@ -33,6 +33,7 @@
 (depends-on "idle-highlight-mode")
 (depends-on "keyfreq")
 (depends-on "magit")
+(depends-on "markdown-mode")
 (depends-on "multiple-cursors")
 (depends-on "nyan-mode")
 (depends-on "pallet")

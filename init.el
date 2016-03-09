@@ -319,6 +319,16 @@
 	      (add-to-list 'company-backends 'company-mode/backend-with-yas))))
 
 
+(use-package markdown-mode
+  :defer t
+  ;; :config
+  ;; (progn
+  ;;   (bind-key "M-n" 'open-line-below markdown-mode-map)
+  ;;   (bind-key "M-p" 'open-line-above markdown-mode-map))
+  :mode (("\\.markdown$" . markdown-mode)
+	 ("\\.md$" . markdown-mode)))
+
+
 (load-local "python")
 
 
