@@ -401,6 +401,40 @@
 	    ))
 
 
+;; https://github.com/jcf/emacs.d/blob/master/init-packages.org#fill-column-indicator
+(use-package fill-column-indicator
+  :init (progn
+	  (add-hook 'prog-mode-hook 'fci-mode)
+	  (add-hook 'text-mode-hook 'fci-mode)
+	  (setq fci-rule-column 80)
+
+	  (defun ziz/fci-enabled-p ()
+	    (and (boundp 'fci-mode) fci-mode))
+
+	  (defvar ziz/fci-mode-suppressed nil)
+
+	  (defadvice popup-create (before suppress-fci-mode activate)
+	    "Suspend fci-mode while popups are visible"
+	    (let ((fci-enabled (ziz/fci-enabled-p)))
+	      (when fci-enabled
+		(set (make-local-variable 'ziz/fci-mode-suppressed) fci-enabled)
+		(turn-off-fci-mode))))
+
+	  (defadvice popup-delete (after restore-fci-mode activate)
+	    "Restore fci-mode when all popups have closed"
+	    (when (and ziz/fci-mode-suppressed
+		       (null popup-instances))
+	      (setq ziz/fci-mode-suppressed nil)
+	      (turn-on-fci-mode))
+
+	    (defadvice enable-theme (after recompute-fci-face activate)
+	      "Regenerate fci-mode line images after switching themes"
+	      (dolist (buffer (buffer-list))
+		(with-current-buffer buffer
+		  (turn-on-fci-mode))))))
+  :config (setq fci-rule-width 2))
+
+
 (load-local "python")
 
 

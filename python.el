@@ -46,8 +46,7 @@
 			  (with-eval-after-load 'company
 			    (add-to-list 'company-backends 'company-anaconda)))
 			(add-hook 'python-mode-hook 'anaconda-mode)
-			(add-hook 'python-mode-hook 'anaconda-eldoc-mode)))
-	    ))
+			(add-hook 'python-mode-hook 'anaconda-eldoc-mode)))))
 
 
 
@@ -64,13 +63,3 @@
 
 ;; (add-hook 'python-mode-hook (lambda ()
 ;;                               (define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)))
-
-;; ;;----------------------------------------------------------------------------
-;; ;; Python - fill column indicator
-;; ;;----------------------------------------------------------------------------
-
-;; (add-hook 'python-mode-hook
-;;           (lambda ()
-;;             (set-fill-column 79)))
-
-;; (add-hook 'python-mode-hook 'fci-mode)
