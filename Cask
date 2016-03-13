@@ -45,6 +45,8 @@
 (depends-on "popwin")
 (depends-on "prodigy")
 (depends-on "projectile")
+(depends-on "py-autopep8")
+(depends-on "py-isort")
 (depends-on "python-django")
 (depends-on "s")
 (depends-on "smartparens")
