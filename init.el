@@ -279,9 +279,11 @@
 
 
 (use-package saveplace
-  :init (progn
-	    (setq-default save-place t)
-	    (setq save-place-file (f-join etc-dir "saved-places"))))
+  :init (save-place-mode 1)
+  :config
+  (progn
+    (setq-default save-place t)
+    (setq save-place-limit nil)))
 
 
 (use-package discover
