@@ -38,7 +38,7 @@
   :defer t
   :diminish projectile-mode
   :init (progn
-	  (add-hook 'after-init-hook 'projectile-global-mode)
+	  (projectile-mode 1)
 	  (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
 	  (setq projectile-known-projects-file (f-join etc-dir "projectile-bookmarks.eld")))
   :config (progn
