@@ -6,8 +6,9 @@
 	      :config (setq py-isort-options '("-sl")))
 
 	    (use-package py-autopep8
-	      :init (progn
-		      (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)))
+	      ;; :init (progn
+	      ;;	      (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
+	      )
 
 	    (use-package virtualenvwrapper
 	      :config
