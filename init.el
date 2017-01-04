@@ -215,8 +215,9 @@
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config (progn
 	    (use-package company-quickhelp
-	      :init (company-quickhelp-mode t))
-
+	      :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
+	    (use-package company-statistics
+	      :init (add-hook 'global-company-mode-hook #'company-statistics-mode))
 	    (setq company-idle-delay 0)
 	    (setq company-minimum-prefix-length 1)))
 
