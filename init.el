@@ -158,35 +158,6 @@
 	    (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)))
 
 
-;; (use-package diff-hl
-;;   :defer t
-;;   :ensure t
-;;   :config (progn
-;;          (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-;;          (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-;;          (add-hook 'vc-checkin-hook 'diff-hl-update)
-;;          (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)))
-
-
-(use-package golden-ratio
-  :defer t
-  :diminish golden-ratio-mode
-  :init (golden-ratio-mode 1)
-  :config (progn (setq golden-ratio-auto-scale t)
-		 (setq split-width-threshold nil)
-		 (setq golden-ratio-exclude-modes
-		       '("ediff-mode"
-			 "eshell-mode"
-			 "dired-mode"))
-
-		 ;; http://tuhdo.github.io/helm-intro.html#sec-4
-		 (defun my/helm-alive-p ()
-		   (if (boundp 'helm-alive-p)
-		       (symbol-value 'helm-alive-p)))
-
-		 (add-to-list 'golden-ratio-inhibit-functions 'my/helm-alive-p)))
-
-
 (use-package whitespace-cleanup-mode
   :init (global-whitespace-cleanup-mode t))
 
@@ -271,7 +242,7 @@
 	    (setq web-mode-enable-current-element-highlight t)
 	    (setq web-mode-enable-auto-closing t)
 	    (setq web-mode-enable-auto-pairing t)
-	    (setq web-mode-engines-alist '(("django"    . ".*/templates/.*\\.html\\'")))))
+	    (setq web-mode-engines-alist '(("django" . ".*/templates/.*\\.html\\'")))))
 
 
 (use-package multiple-cursors
@@ -283,27 +254,8 @@
   :init (popwin-mode 1))
 
 
-(use-package saveplace
-  :init (save-place-mode 1)
-  :config
-  (progn
-    (setq-default save-place t)
-    (setq save-place-limit nil)))
-
-
 (use-package discover
   :init (global-discover-mode 1))
-
-
-(use-package git-gutter
-  :defer t
-  :diminish git-gutter-mode
-  :init (global-git-gutter-mode +1)
-  :bind (("C-x q" . git-gutter:revert-hunk)
-	 ("C-x x" . git-gutter:popup-hunk)
-	 ("C-c C-s" . git-gutter:stage-hunk)
-	 ("C-x p" . git-gutter:previous-hunk)
-	 ("C-x n" . git-gutter:next-hunk)))
 
 
 (use-package yasnippet
@@ -408,6 +360,16 @@
 	    ))
 
 
+(use-package dired
+  :commands dired
+  :init (progn
+	  (setq dired-recursive-deletes 'top)
+	  (setq dired-listing-switches "--group-directories-first -alh")
+	  (setq diredp-hide-details-initially-flag nil)
+
+	  (define-key dired-mode-map [mouse-2] 'dired-find-file)
+	  (guide-key/add-local-guide-key-sequence "%"))
+  :config (use-package dired+))
 
 
 ;; https://github.com/jcf/emacs.d/blob/master/init-packages.org#fill-column-indicator
@@ -454,9 +416,23 @@
 (global-set-key [remap switch-to-buffer] #'helm-mini)
 (global-set-key [remap yank-pop] #'helm-show-kill-ring)
 
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+
+(setq backup-directory-alist '(("." . "~/.emacs-backups"))) ; stop leaving backup~ turds scattered everywhere
+(setq backup-by-copying t
+      delete-old-versions -1
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      vc-make-backup-files t)
+
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+	search-ring
+	regexp-search-ring))
 
 (provide 'init)
