@@ -231,8 +231,11 @@
 
 
 (use-package drag-stuff
+  :ensure t
   :diminish drag-stuff-mode
-  :init (drag-stuff-global-mode t))
+  :init (progn
+	  (drag-stuff-global-mode t)
+	  (drag-stuff-define-keys)))
 
 
 (use-package company
@@ -403,6 +406,8 @@
 		(ispell-kill-ispell t)
 		))
 	    ))
+
+
 
 
 ;; https://github.com/jcf/emacs.d/blob/master/init-packages.org#fill-column-indicator
