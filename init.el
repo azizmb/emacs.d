@@ -233,6 +233,10 @@
   :mode ("Cask" . emacs-lisp-mode))
 
 
+(use-package yaml-mode
+  :mode ("\\.yaml$" . yaml-mode))
+
+
 (use-package web-mode
   :mode ("\\.html?\\'" . web-mode)
   :config (progn
