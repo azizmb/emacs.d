@@ -31,16 +31,18 @@
 
 (load-local "misc")
 
+
 (use-package zenburn-theme
   :config (load-theme 'zenburn :no-confirm))
 
+
 (use-package projectile
-  :defer t
+  :ensure projectile
   :diminish projectile-mode
   :init (progn
-	  (projectile-mode 1)
 	  (setq projectile-cache-file (f-join etc-dir "projectile.cache"))
-	  (setq projectile-known-projects-file (f-join etc-dir "projectile-bookmarks.eld")))
+	  (setq projectile-known-projects-file (f-join etc-dir "projectile-bookmarks.eld"))
+	  (projectile-mode 1))
   :config (progn
 	    (setq projectile-enable-caching t)
 	    (setq projectile-require-project-root nil)
