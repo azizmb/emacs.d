@@ -1,5 +1,12 @@
 ;;; init.el - Aziz M. Bookwala -*- lexical-binding: t; -*-
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (mapc
  (lambda (mode)
    (when (fboundp mode)
@@ -410,6 +417,9 @@
 		  (turn-on-fci-mode))))))
   :config (setq fci-rule-width 2))
 
+(use-package direnv
+  :ensure t
+  :config (direnv-mode))
 
 (load-local "python")
 

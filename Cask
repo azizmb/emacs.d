@@ -12,6 +12,7 @@
 (depends-on "dash")
 (depends-on "diminish")
 (depends-on "dired+")
+(depends-on "direnv")
 (depends-on "discover")
 (depends-on "dockerfile-mode")
 (depends-on "drag-stuff")
