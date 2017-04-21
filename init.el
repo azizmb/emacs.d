@@ -131,7 +131,7 @@
 
 	    (use-package helm-swoop
 	      :bind
-	      (("C-S-s" . helm-swoop)
+	      (("C-s" . helm-swoop)
 	       ("M-i" . helm-swoop)
 	       ("M-I" . helm-swoop-back-to-last-point)
 	       ("C-c M-i" . helm-multi-swoop)
