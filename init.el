@@ -53,6 +53,7 @@
   :config (progn
 	    (setq projectile-enable-caching t)
 	    (setq projectile-require-project-root nil)
+	    (setq projectile-switch-project-action 'projectile-vc)
 
 	    (add-to-list 'projectile-globally-ignored-files "node_modules")
 
@@ -107,6 +108,7 @@
 	     helm-autoresize-max-height 25
 	     helm-autoresize-min-height 25
 	     )
+
 	    (helm-mode +1)
 	    (helm-autoresize-mode t)
 
@@ -119,8 +121,6 @@
 	      (helm-projectile-on)
 	      (setq projectile-completion-system 'helm
 		    helm-projectile-fuzzy-match t)
-
-	      (setq projectile-switch-project-action 'projectile-vc)
 
 	      (define-key projectile-mode-map (kbd "s-g") 'helm-projectile-ag)
 	      (define-key helm-command-map (kbd "p") 'helm-projectile))
