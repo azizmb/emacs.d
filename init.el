@@ -430,7 +430,8 @@
 (global-set-key [remap list-buffers] #'helm-mini)
 (global-set-key [remap switch-to-buffer] #'helm-mini)
 (global-set-key [remap yank-pop] #'helm-show-kill-ring)
-
+(global-set-key [C-mouse-4] 'text-scale-increase)
+(global-set-key [C-mouse-5] 'text-scale-decrease)
 
 (setq backup-directory-alist '(("." . "~/.emacs-backups"))) ; stop leaving backup~ turds scattered everywhere
 (setq backup-by-copying t
