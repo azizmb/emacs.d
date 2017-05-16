@@ -148,10 +148,9 @@
 
 
 (use-package magit
+  :ensure t
   :bind ("C-x g" . magit-status)
-  :init (progn
-	 (use-package fullframe
-	    :config (fullframe projectile-vc magit-mode-quit-window)))
+  :diminish magit-mode
   :config (progn
 	    (setq magit-default-tracking-name-function 'magit-default-tracking-name-branch-only)
 	    (setq magit-set-upstream-on-push t)))
