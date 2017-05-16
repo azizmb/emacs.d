@@ -55,20 +55,11 @@
 			  (with-eval-after-load 'company
 			    (add-to-list 'company-backends 'company-anaconda)))
 			(add-hook 'python-mode-hook 'anaconda-mode)
-			(add-hook 'python-mode-hook 'anaconda-eldoc-mode)))))
+			(add-hook 'python-mode-hook 'anaconda-eldoc-mode)))
 
+	    (defun annotate-pdb ()
+	      (interactive)
+	      (highlight-lines-matching-regexp "import pdb")
+	      (highlight-lines-matching-regexp "pdb.set_trace()"))
 
-
-;; ;;----------------------------------------------------------------------------
-;; ;; Insert breakpoint
-;; ;;----------------------------------------------------------------------------
-
-;; (defun python-add-breakpoint ()
-;;   "Add a break point"
-;;   (interactive)
-;;   (newline-and-indent)
-;;   (insert "import ipdb; ipdb.set_trace()")
-;;   (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
-
-;; (add-hook 'python-mode-hook (lambda ()
-;;                               (define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)))
+	    (add-hook 'python-mode-hook 'annotate-pdb)))
