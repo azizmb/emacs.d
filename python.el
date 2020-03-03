@@ -59,7 +59,7 @@
 
 	    (defun annotate-pdb ()
 	      (interactive)
-	      (highlight-lines-matching-regexp "import pdb")
-	      (highlight-lines-matching-regexp "pdb.set_trace()"))
+	      (highlight-lines-matching-regexp "import i?pdb")
+	      (highlight-lines-matching-regexp "i?pdb.set_trace()"))
 
 	    (add-hook 'python-mode-hook 'annotate-pdb)))
