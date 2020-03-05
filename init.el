@@ -157,7 +157,8 @@
 
 
 (use-package flycheck
-  :init (add-hook 'after-init-hook 'global-flycheck-mode)
+  :diminish " ✓"
+  :init (add-hook 'prog-mode-hook #'flycheck-mode)
   :config (progn
 	    (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
 	    (setq flycheck-idle-change-delay 0.8)
@@ -188,16 +189,6 @@
 	    (setq uniquify-separator " • ")
 	    (setq uniquify-after-kill-buffer-p t)
 	    (setq uniquify-ignore-buffers-re "^\\*")))
-
-
-(use-package undo-tree
-  :defer t
-  :diminish undo-tree-mode
-  :init (global-undo-tree-mode)
-  :config (progn
-	    (setq undo-tree-visualizer-timestamps t)
-	    (setq undo-tree-visualizer-diff t))
-  :bind ("C-c u" . undo-tree-visualize))
 
 
 (use-package guide-key
@@ -239,8 +230,14 @@
   :mode ("Cask" . emacs-lisp-mode))
 
 
+;; yaml
 (use-package yaml-mode
-  :mode ("\\.yaml$" . yaml-mode))
+  :mode
+  ((("\\.yml$" . yaml-mode)
+    ("\\.yaml$" . yaml-mode))))
+
+
+(use-package restart-emacs)
 
 
 (use-package web-mode
@@ -378,9 +375,8 @@
 	  (setq dired-listing-switches "--group-directories-first -alh")
 	  (setq diredp-hide-details-initially-flag nil)
 
-	  (define-key dired-mode-map [mouse-2] 'dired-find-file)
-	  (guide-key/add-local-guide-key-sequence "%"))
-  :config (use-package dired+))
+	  ;; (define-key dired-mode-map [mouse-2] 'dired-find-file)
+	  (guide-key/add-local-guide-key-sequence "%")))
 
 
 ;; https://github.com/jcf/emacs.d/blob/master/init-packages.org#fill-column-indicator
@@ -451,3 +447,17 @@
 	regexp-search-ring))
 
 (provide 'init)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (pipenv restart-emacs auto-virtualenv hlinum zenburn-theme yaml-tomato yaml-mode whitespace-cleanup-mode virtualenvwrapper use-package undo-tree python-django pyenv-mode py-isort py-autopep8 prodigy pony-mode pip-requirements pallet nyan-mode multiple-cursors markdown-mode magit-popup magit lv keyfreq idle-highlight-mode htmlize helm-swoop helm-projectile helm-flyspell helm-flycheck helm-descbinds helm-ag guide-key graphene git-timemachine fullframe flyspell-lazy flycheck-cask fill-column-indicator expand-region elpy drag-stuff dockerfile-mode discover direnv diminish csv-mode company-web company-statistics company-quickhelp company-jedi company-anaconda better-defaults))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
