@@ -11,3 +11,4 @@ etc/
 .emacs.desktop
 
 anaconda-mode/
+elpa/

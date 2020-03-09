@@ -1,2 +1,4 @@
 archive-contents
 history
+elpa/*
+projectile.cache

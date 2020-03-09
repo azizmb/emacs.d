@@ -17,49 +17,64 @@
 
 (setq modules
   '(
-     ;; module-utils
-     ;; module-coding-evil
-     ;; module-tools
-     ;; module-path
-     ;; module-editing
-     ;; module-ui
-     ;; module-fonts
-     ;; module-appearance
-     ;; module-searching
-     ;; module-navigation
-     ;; module-writing
-     ;; module-completion
-     ;; module-projects
-     ;; module-tags
-     ;; module-coding-sh
-     ;; module-coding-ansible
-     ;; module-source-control
-     ;; module-coding-docker
-     ;; module-coding-haskell
-     ;; module-coding-general
-     ;; module-coding-elixir
-     ;; module-coding-java
-     ;; module-coding-js
-     ;; module-coding-web
-     ;; module-coding-typescript
-     ;; module-coding-lua
-     ;; module-coding-php
+    module-editing
+    module-projects
+    module-completion
+    
+    ;; modules-prev-init
+    modules-misc
+    
+    module-coding-general
     module-coding-python
-    modules-prev-init
-    modules-mis
-     ;; module-coding-ruby
-     ;; module-coding-swift
-     ;; module-coding-ethereum
-     ;; module-coding-iot
-     ;; module-coding-go
-     ;; module-coding-rust
-     ;; module-coding-hashicorp
-     ;; module-coding-dart
-     ;; module-term
-     ;; module-org
-     ;; module-google
-     )
+
+    module-writing
+    )
   )
+
+;; (setq modules
+;;   '(
+;;      ;; module-utils
+;;      ;; module-coding-evil
+;;      ;; module-tools
+;;      ;; module-path
+;;      ;; module-editing
+;;      ;; module-ui
+;;      ;; module-fonts
+;;      ;; module-searching
+;;      ;; module-navigation
+;;      ;; module-writing
+;;      ;; module-completion
+;;      ;; module-projects
+;;      ;; module-tags
+;;      ;; module-coding-sh
+;;      ;; module-coding-ansible
+;;      ;; module-source-control
+;;      ;; module-coding-docker
+;;      ;; module-coding-haskell
+;;      ;; module-coding-general
+;;      ;; module-coding-elixir
+;;      ;; module-coding-java
+;;      ;; module-coding-js
+;;      ;; module-coding-web
+;;      ;; module-coding-typescript
+;;      ;; module-coding-lua
+;;      ;; module-coding-php
+;;     module-coding-python
+;;     modules-prev-init
+;;     modules-misc
+;;      ;; module-coding-ruby
+;;      ;; module-coding-swift
+;;      ;; module-coding-ethereum
+;;      ;; module-coding-iot
+;;      ;; module-coding-go
+;;      ;; module-coding-rust
+;;      ;; module-coding-hashicorp
+;;      ;; module-coding-dart
+;;      ;; module-term
+;;      ;; module-org
+;;      ;; module-google
+;;      )
+;;   )
 
 (defun core/load-modules ()
   (interactive)

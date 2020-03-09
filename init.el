@@ -1,3 +1,5 @@
+
+
 (load-file (concat (file-name-directory load-file-name)
 	       "src/core/core-vars.el"))
 (load-file (concat (file-name-directory load-file-name)
@@ -8,17 +10,15 @@
 (setq explicit-shell-file-name core-term-shell)
 (setenv "SHELL" core-term-shell)
 (setq shell-file-name "zsh")
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+;; (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 ;;; code:
-(package-initialize)
 (add-to-list 'package-archives
-  '("gnu" . "http://elpa.gnu.org/packages/") t)
+	     '("gnu" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives
-  '("org" . "http://orgmode.org/elpa/") t)
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
-  '("melpa" . "https://melpa.org/packages/") t )
-
+	     '("melpa" . "https://melpa.org/packages/") t )
 
 (package-initialize)
 
@@ -42,5 +42,11 @@
     emacs-version emacs-min-version)
   (require 'core-emacs)
   (emacs/init))
+
+
+(use-package zenburn-theme
+  :ensure t
+  :config (load-theme 'zenburn :no-confirm))
+
 
 (provide 'init)

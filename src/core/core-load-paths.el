@@ -15,8 +15,8 @@
   `(
      ,core-directory
      ,modules-directory
-     ,elisp-directory
-     ,themes-directory
+     ;; ,elisp-directory
+     ;; ,themes-directory
      ))
 
 (provide 'core-load-paths)

@@ -89,3 +89,5 @@ point reaches the beginning or end of the buffer, stop there."
 
 
 (add-hook 'after-init-hook 'server-start t)
+
+(provide 'modules-misc)
